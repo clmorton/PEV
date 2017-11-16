@@ -1,0 +1,376 @@
+> mod7SLM <- lagsarlm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
++                         log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
++                     data = SpatDat, continuity.listw)
+> summary(mod7SLM)
+
+Call:lagsarlm(formula = log(PPEV1k) ~ log(MedianAge) + log(Level4) + 
+    log(SelfEmp) + log(MedianY) + log(PopDens) + log(SemiD) +     log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + 
+    TotCPoint, data = SpatDat, listw = continuity.listw)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.0150396 -0.1496148 -0.0044338  0.1355949  1.1817785 
+
+Type: lag 
+Coefficients: (asymptotic standard errors) 
+                 Estimate Std. Error z value  Pr(>|z|)
+(Intercept)    -4.2565713  2.1070120 -2.0202 0.0433634
+log(MedianAge)  0.6364601  0.2715366  2.3439 0.0190823
+log(Level4)     0.4291015  0.0910125  4.7148 2.420e-06
+log(SelfEmp)    0.2410344  0.0874446  2.7564 0.0058437
+log(MedianY)    0.5807126  0.1593337  3.6446 0.0002678
+log(PopDens)   -0.0152114  0.0161839 -0.9399 0.3472642
+log(SemiD)      0.2197623  0.0603735  3.6400 0.0002726
+log(MeanRes)   -1.6631950  0.3974840 -4.1843 2.860e-05
+log(OneCar)    -1.3568697  0.2224909 -6.0985 1.070e-09
+log(CarDrive)  -0.1097588  0.0917695 -1.1960 0.2316863
+log(PHEV1k)     0.2393275  0.0515582  4.6419 3.452e-06
+TotCPoint       0.0028727  0.0006137  4.6810 2.855e-06
+
+Rho: 0.28828, LR test value: 32.28, p-value: 1.3351e-08
+Asymptotic standard error: 0.046985
+    z-value: 6.1355, p-value: 8.4879e-10
+Wald statistic: 37.645, p-value: 8.4879e-10
+
+Log likelihood: 5.10485 for lag model
+ML residual variance (sigma squared): 0.055954, (sigma: 0.23655)
+Number of observations: 374 
+Number of parameters estimated: 14 
+AIC: 17.79, (AIC for lm: 48.07)
+LM test for residual autocorrelation
+test value: 8.4846, p-value: 0.0035817
+
+> 
+> #Spatial Error Model
+> mod7SEM <- errorsarlm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
++                         log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
++                       data = SpatDat, continuity.listw)
+> summary(mod7SEM)
+
+Call:errorsarlm(formula = log(PPEV1k) ~ log(MedianAge) + log(Level4) + 
+    log(SelfEmp) + log(MedianY) + log(PopDens) + log(SemiD) +     log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + 
+    TotCPoint, data = SpatDat, listw = continuity.listw)
+
+Residuals:
+        Min          1Q      Median          3Q         Max 
+-1.04096363 -0.13667608  0.00093122  0.14193733  1.20065798 
+
+Type: error 
+Coefficients: (asymptotic standard errors) 
+                  Estimate  Std. Error z value  Pr(>|z|)
+(Intercept)    -5.18217856  2.20220237 -2.3532 0.0186136
+log(MedianAge)  0.44964607  0.27242530  1.6505 0.0988346
+log(Level4)     0.39763554  0.10036215  3.9620 7.432e-05
+log(SelfEmp)    0.33396396  0.10020383  3.3328 0.0008596
+log(MedianY)    0.72776524  0.17057778  4.2665 1.986e-05
+log(PopDens)   -0.01457623  0.01917312 -0.7602 0.4471093
+log(SemiD)      0.19871773  0.06999480  2.8390 0.0045250
+log(MeanRes)   -1.54482770  0.42510927 -3.6340 0.0002791
+log(OneCar)    -1.30820211  0.24688357 -5.2989 1.165e-07
+log(CarDrive)  -0.14849532  0.11337185 -1.3098 0.1902609
+log(PHEV1k)     0.26350362  0.05848478  4.5055 6.621e-06
+TotCPoint       0.00259951  0.00061642  4.2171 2.475e-05
+
+Lambda: 0.43768, LR test value: 38.063, p-value: 6.8507e-10
+Asymptotic standard error: 0.060147
+    z-value: 7.2769, p-value: 3.415e-13
+Wald statistic: 52.954, p-value: 3.415e-13
+
+Log likelihood: 7.99644 for error model
+ML residual variance (sigma squared): 0.053677, (sigma: 0.23168)
+Number of observations: 374 
+Number of parameters estimated: 14 
+AIC: 12.007, (AIC for lm: 48.07)
+
+> 
+> #Spatial Durbin Model
+> mod7SDM <- lagsarlm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
++                       log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
++                     data = SpatDat, continuity.listw, type = "mixed")
+> summary(mod7SDM)
+
+Call:lagsarlm(formula = log(PPEV1k) ~ log(MedianAge) + log(Level4) + 
+    log(SelfEmp) + log(MedianY) + log(PopDens) + log(SemiD) +     log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + 
+    TotCPoint, data = SpatDat, listw = continuity.listw, type = "mixed")
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.0231797 -0.1316202 -0.0049303  0.1360404  1.1927330 
+
+Type: mixed 
+Coefficients: (asymptotic standard errors) 
+                      Estimate  Std. Error z value  Pr(>|z|)
+(Intercept)        -2.60756861  3.68658310 -0.7073 0.4793719
+log(MedianAge)      0.22675791  0.30265484  0.7492 0.4537189
+log(Level4)         0.45334911  0.10971846  4.1319 3.597e-05
+log(SelfEmp)        0.25816673  0.12318771  2.0957 0.0361072
+log(MedianY)        0.63975794  0.17922652  3.5695 0.0003576
+log(PopDens)       -0.04941821  0.02280966 -2.1665 0.0302694
+log(SemiD)          0.22952245  0.07813980  2.9373 0.0033105
+log(MeanRes)       -1.82602674  0.47735562 -3.8253 0.0001306
+log(OneCar)        -1.01539362  0.26698254 -3.8032 0.0001428
+log(CarDrive)      -0.05589297  0.15597001 -0.3584 0.7200761
+log(PHEV1k)         0.20942215  0.06537854  3.2032 0.0013590
+TotCPoint           0.00256211  0.00061291  4.1802 2.912e-05
+lag.log(MedianAge) -0.11707974  0.56337956 -0.2078 0.8353720
+lag.log(Level4)    -0.20266244  0.17528786 -1.1562 0.2476119
+lag.log(SelfEmp)    0.03223828  0.18043589  0.1787 0.8581977
+lag.log(MedianY)   -0.13872841  0.29106503 -0.4766 0.6336303
+lag.log(PopDens)    0.08472587  0.03251209  2.6060 0.0091612
+lag.log(SemiD)     -0.14736556  0.11931283 -1.2351 0.2167862
+lag.log(MeanRes)   -0.24362618  0.88273124 -0.2760 0.7825547
+lag.log(OneCar)     0.09565370  0.40579907  0.2357 0.8136524
+lag.log(CarDrive)   0.14856728  0.22495056  0.6604 0.5089688
+lag.log(PHEV1k)    -0.07045039  0.09549340 -0.7378 0.4606655
+lag.TotCPoint       0.00140012  0.00133295  1.0504 0.2935379
+
+Rho: 0.41699, LR test value: 36.887, p-value: 1.2519e-09
+Asymptotic standard error: 0.06077
+    z-value: 6.8618, p-value: 6.7977e-12
+Wald statistic: 47.085, p-value: 6.7978e-12
+
+Log likelihood: 16.6683 for mixed model
+ML residual variance (sigma squared): 0.051473, (sigma: 0.22688)
+Number of observations: 374 
+Number of parameters estimated: 25 
+AIC: 16.663, (AIC for lm: 51.55)
+LM test for residual autocorrelation
+test value: 1.2797, p-value: 0.25796
+
+> W <- as(continuity.listw, "CsparseMatrix")
+> trMatc <- trW(W, type = "mult")
+> summary(impacts(mod7SDM, tr=trMatc, R=200), zstats=TRUE, short = TRUE)
+Impact measures (mixed, trace):
+                     Direct     Indirect       Total
+log(MedianAge)  0.224421085 -0.036296167  0.18812492
+log(Level4)     0.451936112 -0.021947088  0.42998902
+log(SelfEmp)    0.272680721  0.225434976  0.49811570
+log(MedianY)    0.653042905  0.206345420  0.85938833
+log(PopDens)   -0.042765783  0.103327079  0.06056130
+log(SemiD)      0.224163024 -0.083243857  0.14091917
+log(MeanRes)   -1.930303846 -1.619657699 -3.54996155
+log(OneCar)    -1.049399016 -0.528180166 -1.57757918
+log(CarDrive)  -0.042897024  0.201856167  0.15895914
+log(PHEV1k)     0.211173179  0.027197419  0.23837060
+TotCPoint       0.002818221  0.003977969  0.00679619
+========================================================
+Simulation results (asymptotic variance matrix):
+========================================================
+Simulated z-values:
+                   Direct    Indirect      Total
+log(MedianAge)  0.6242381 -0.04809351  0.1441899
+log(Level4)     3.9402833 -0.14837331  1.4398027
+log(SelfEmp)    2.5518063  0.89468025  2.0258878
+log(MedianY)    3.9491670  0.43701328  1.7865697
+log(PopDens)   -1.8105925  2.24112083  1.3537647
+log(SemiD)      3.1763484 -0.55142119  0.8577370
+log(MeanRes)   -3.9807878 -1.25326922 -2.5512435
+log(OneCar)    -4.0824612 -1.00703207 -2.7711557
+log(CarDrive)  -0.3103879  0.67145879  0.5895131
+log(PHEV1k)     3.0865388  0.26455679  1.8202312
+TotCPoint       4.5519555  1.93230764  2.9177576
+
+Simulated p-values:
+               Direct     Indirect Total    
+log(MedianAge) 0.5324713  0.961642 0.8853505
+log(Level4)    8.1385e-05 0.882048 0.1499232
+log(SelfEmp)   0.0107166  0.370958 0.0427763
+log(MedianY)   7.8424e-05 0.662102 0.0740071
+log(PopDens)   0.0702039  0.025018 0.1758114
+log(SemiD)     0.0014914  0.581345 0.3910377
+log(MeanRes)   6.8687e-05 0.210108 0.0107339
+log(OneCar)    4.4561e-05 0.313919 0.0055858
+log(CarDrive)  0.7562660  0.501928 0.5555172
+log(PHEV1k)    0.0020250  0.791351 0.0687238
+TotCPoint      5.3150e-06 0.053322 0.0035256
+> 
+> #Spatial Durbin Error Model
+> mod7SDEM <- errorsarlm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
++                          log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
++                       data = SpatDat, continuity.listw, etype = "emixed")
+> summary(mod7SDEM)
+
+Call:errorsarlm(formula = log(PPEV1k) ~ log(MedianAge) + log(Level4) + 
+    log(SelfEmp) + log(MedianY) + log(PopDens) + log(SemiD) +     log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + 
+    TotCPoint, data = SpatDat, listw = continuity.listw, etype = "emixed")
+
+Residuals:
+        Min          1Q      Median          3Q         Max 
+-1.01236166 -0.13405139 -0.00057338  0.13629740  1.18574447 
+
+Type: error 
+Coefficients: (asymptotic standard errors) 
+                      Estimate  Std. Error z value  Pr(>|z|)
+(Intercept)        -5.85072398  5.35774331 -1.0920 0.2748275
+log(MedianAge)      0.23637928  0.31181385  0.7581 0.4484042
+log(Level4)         0.45166663  0.10556328  4.2786 1.880e-05
+log(SelfEmp)        0.28504601  0.11654046  2.4459 0.0144492
+log(MedianY)        0.63765173  0.17523119  3.6389 0.0002738
+log(PopDens)       -0.04325995  0.02128018 -2.0329 0.0420651
+log(SemiD)          0.22086919  0.07343935  3.0075 0.0026340
+log(MeanRes)       -1.87881036  0.46421850 -4.0473 5.182e-05
+log(OneCar)        -1.02458946  0.25897716 -3.9563 7.612e-05
+log(CarDrive)      -0.03388517  0.14500022 -0.2337 0.8152253
+log(PHEV1k)         0.21122406  0.06207397  3.4028 0.0006670
+TotCPoint           0.00276953  0.00062052  4.4633 8.072e-06
+lag.log(MedianAge)  0.31285798  0.65560412  0.4772 0.6332157
+lag.log(Level4)     0.09587451  0.19943196  0.4807 0.6307028
+lag.log(SelfEmp)    0.08021781  0.20303856  0.3951 0.6927790
+lag.log(MedianY)    0.13169631  0.33105813  0.3978 0.6907745
+lag.log(PopDens)    0.09813160  0.03660349  2.6809 0.0073417
+lag.log(SemiD)     -0.06467437  0.13641091 -0.4741 0.6354184
+lag.log(MeanRes)   -0.82620064  0.98724133 -0.8369 0.4026611
+lag.log(OneCar)    -0.37205195  0.45774549 -0.8128 0.4163372
+lag.log(CarDrive)   0.06393070  0.23996250  0.2664 0.7899161
+lag.log(PHEV1k)     0.01012608  0.11060317  0.0916 0.9270530
+lag.TotCPoint       0.00240913  0.00149938  1.6068 0.1081085
+
+Lambda: 0.43704, LR test value: 38.416, p-value: 5.7171e-10
+Asymptotic standard error: 0.060183
+    z-value: 7.262, p-value: 3.8147e-13
+Wald statistic: 52.736, p-value: 3.8158e-13
+
+Log likelihood: 17.43275 for error model
+ML residual variance (sigma squared): 0.051043, (sigma: 0.22593)
+Number of observations: 374 
+Number of parameters estimated: 25 
+AIC: 15.135, (AIC for lm: 51.55)
+
+> summary(impacts(mod7SDEM))
+Impact measures (SDEM, estimable):
+                    Direct     Indirect        Total
+log(MedianAge)  0.23637928  0.312857977  0.549237254
+log(Level4)     0.45166663  0.095874510  0.547541139
+log(SelfEmp)    0.28504601  0.080217807  0.365263813
+log(MedianY)    0.63765173  0.131696308  0.769348035
+log(PopDens)   -0.04325995  0.098131597  0.054871643
+log(SemiD)      0.22086919 -0.064674368  0.156194818
+log(MeanRes)   -1.87881036 -0.826200641 -2.705011001
+log(OneCar)    -1.02458946 -0.372051952 -1.396641417
+log(CarDrive)  -0.03388517  0.063930705  0.030045535
+log(PHEV1k)     0.21122406  0.010126084  0.221350139
+TotCPoint       0.00276953  0.002409127  0.005178658
+========================================================
+Standard errors:
+                     Direct    Indirect       Total
+log(MedianAge) 0.3218678801 0.676743227 0.819524129
+log(Level4)    0.1089670270 0.205862388 0.224319685
+log(SelfEmp)   0.1202981594 0.209585276 0.209845059
+log(MedianY)   0.1808812914 0.341732665 0.387064385
+log(PopDens)   0.0219663327 0.037783722 0.036460153
+log(SemiD)     0.0758073109 0.140809307 0.141811696
+log(MeanRes)   0.4791866233 1.019073652 1.119116548
+log(OneCar)    0.2673275457 0.472504903 0.525912300
+log(CarDrive)  0.1496755597 0.247699784 0.217697643
+log(PHEV1k)    0.0640754638 0.114169424 0.119008930
+TotCPoint      0.0006405238 0.001547722 0.001787164
+========================================================
+Z-values:
+                   Direct    Indirect      Total
+log(MedianAge)  0.7343985  0.46229938  0.6701905
+log(Level4)     4.1449844  0.46572136  2.4408965
+log(SelfEmp)    2.3694960  0.38274543  1.7406358
+log(MedianY)    3.5252497  0.38537817  1.9876487
+log(PopDens)   -1.9693753  2.59719245  1.5049757
+log(SemiD)      2.9135605 -0.45930464  1.1014241
+log(MeanRes)   -3.9208322 -0.81073693 -2.4170950
+log(OneCar)    -3.8327119 -0.78740337 -2.6556546
+log(CarDrive)  -0.2263908  0.25809754  0.1380150
+log(PHEV1k)     3.2964889  0.08869348  1.8599456
+TotCPoint       4.3238523  1.55656386  2.8976957
+
+p-values:
+               Direct     Indirect  Total    
+log(MedianAge) 0.46270592 0.6438666 0.5027364
+log(Level4)    3.3984e-05 0.6414150 0.0146509
+log(SelfEmp)   0.01781235 0.7019085 0.0817474
+log(MedianY)   0.00042308 0.6999573 0.0468506
+log(PopDens)   0.04891000 0.0093989 0.1323303
+log(SemiD)     0.00357333 0.6460154 0.2707121
+log(MeanRes)   8.8244e-05 0.4175168 0.0156449
+log(OneCar)    0.00012674 0.4310458 0.0079155
+log(CarDrive)  0.82089748 0.7963316 0.8902286
+log(PHEV1k)    0.00097901 0.9293255 0.0628932
+TotCPoint      1.5333e-05 0.1195741 0.0037592
+
+> 
+> #Simultaneous Autoregressive Model
+> mod7SAR <- spautolm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
++                       log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
++                     data = SpatDat, listw = continuity.listw, family = "SAR", method = "eigen")
+> summary(mod7SAR)
+
+Call: spautolm(formula = log(PPEV1k) ~ log(MedianAge) + log(Level4) + 
+    log(SelfEmp) + log(MedianY) + log(PopDens) + log(SemiD) +     log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + 
+    TotCPoint, data = SpatDat, listw = continuity.listw, family = "SAR",     method = "eigen")
+
+Residuals:
+        Min          1Q      Median          3Q         Max 
+-1.04096363 -0.13667608  0.00093122  0.14193733  1.20065798 
+
+Coefficients: 
+                  Estimate  Std. Error z value  Pr(>|z|)
+(Intercept)    -5.18217856  2.20220237 -2.3532 0.0186136
+log(MedianAge)  0.44964607  0.27242530  1.6505 0.0988346
+log(Level4)     0.39763554  0.10036215  3.9620 7.432e-05
+log(SelfEmp)    0.33396396  0.10020383  3.3328 0.0008596
+log(MedianY)    0.72776524  0.17057778  4.2665 1.986e-05
+log(PopDens)   -0.01457623  0.01917312 -0.7602 0.4471093
+log(SemiD)      0.19871773  0.06999480  2.8390 0.0045250
+log(MeanRes)   -1.54482769  0.42510927 -3.6340 0.0002791
+log(OneCar)    -1.30820211  0.24688357 -5.2989 1.165e-07
+log(CarDrive)  -0.14849532  0.11337185 -1.3098 0.1902609
+log(PHEV1k)     0.26350362  0.05848478  4.5055 6.621e-06
+TotCPoint       0.00259951  0.00061642  4.2171 2.475e-05
+
+Lambda: 0.43768 LR test value: 38.063 p-value: 6.8507e-10 
+Numerical Hessian standard error of lambda: 0.065141 
+
+Log likelihood: 7.99644 
+ML residual variance (sigma squared): 0.053677, (sigma: 0.23168)
+Number of observations: 374 
+Number of parameters estimated: 14 
+AIC: 12.007
+
+> mod7resSAR <- MCMCsamp(mod7SAR, mcmc = 5000, burnin = 500, listw = continuity.listw)
+> summary(mod7resSAR)
+
+Iterations = 1:5000
+Thinning interval = 1 
+Number of chains = 1 
+Sample size per chain = 5000 
+
+1. Empirical mean and standard deviation for each variable,
+   plus standard error of the mean:
+
+                    Mean        SD  Naive SE Time-series SE
+lambda          0.444992 0.0681493 9.638e-04      6.671e-03
+(Intercept)    -4.798132 2.1594795 3.054e-02      2.004e-01
+log(MedianAge)  0.421063 0.2772618 3.921e-03      2.781e-02
+log(Level4)     0.394665 0.0984983 1.393e-03      9.370e-03
+log(SelfEmp)    0.349112 0.0995126 1.407e-03      1.055e-02
+log(MedianY)    0.703059 0.1652965 2.338e-03      1.609e-02
+log(PopDens)   -0.017392 0.0207148 2.930e-04      2.156e-03
+log(SemiD)      0.206079 0.0690531 9.766e-04      7.038e-03
+log(MeanRes)   -1.571274 0.4135488 5.848e-03      4.192e-02
+log(OneCar)    -1.309055 0.2463920 3.485e-03      2.298e-02
+log(CarDrive)  -0.161458 0.1171767 1.657e-03      1.201e-02
+log(PHEV1k)     0.266563 0.0619782 8.765e-04      6.427e-03
+TotCPoint       0.002621 0.0006069 8.582e-06      5.497e-05
+
+2. Quantiles for each variable:
+
+                    2.5%       25%       50%       75%     97.5%
+lambda          0.321841  0.406817  0.447639  0.482111  0.594417
+(Intercept)    -9.470343 -6.122799 -4.856076 -3.436533 -0.292793
+log(MedianAge) -0.056108  0.197520  0.416110  0.613257  0.973969
+log(Level4)     0.190407  0.326237  0.395180  0.461371  0.578661
+log(SelfEmp)    0.168791  0.288530  0.344009  0.403603  0.568382
+log(MedianY)    0.339478  0.604672  0.701677  0.817893  1.043105
+log(PopDens)   -0.057662 -0.031725 -0.018188 -0.002146  0.028047
+log(SemiD)      0.069204  0.162526  0.209742  0.245049  0.349467
+log(MeanRes)   -2.322439 -1.847744 -1.577189 -1.310504 -0.743061
+log(OneCar)    -1.758949 -1.469031 -1.309697 -1.157950 -0.824675
+log(CarDrive)  -0.377173 -0.240264 -0.170470 -0.085481  0.083368
+log(PHEV1k)     0.134955  0.224555  0.271984  0.306945  0.387927
+TotCPoint       0.001445  0.002228  0.002665  0.002962  0.003814

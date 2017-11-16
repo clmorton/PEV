@@ -1,5 +1,5 @@
 #Load Data
-setwd(...\HEV)
+setwd("~/GitHub/PEV")
 attach(Integrated_Spreadsheet_contiguous)
 
 #Load Packages; use the function instal.package() if a first instal is needed
@@ -21,8 +21,8 @@ describe(Integrated_Spreadsheet)
 
 #Bivariate Analaysis with Socioeconomics 
 
-pairs.panels(Integrated_Spreadsheet[c(3,41,48:61)], method = "spearman", hist.col = "gray80", ellipses = "FALSE", breaks = 25)
-cor1 <- rcorr(as.matrix(Integrated_Spreadsheet[c(3,41,48:61)]), type = "spearman")
+pairs.panels(Integrated_Spreadsheet_contiguous[c(7,19:30)], method = "spearman", hist.col = "gray80", ellipses = "FALSE", breaks = 25)
+cor1 <- rcorr(as.matrix(Integrated_Spreadsheet_contiguous[c(7,19:30)]), type = "spearman")
 cor1
 cor1$r
 cor1$P
@@ -31,8 +31,8 @@ corrplot(cor1$r, type="upper", order="original",
 
 #Bivariate Analaysis with Travel 
 
-pairs.panels(Integrated_Spreadsheet[c(3,17:31)], method = "spearman", hist.col = "gray80", ellipses = "FALSE", breaks = 25)
-cor2 <- rcorr(as.matrix(Integrated_Spreadsheet[c(3,17:31)]), type = "spearman")
+pairs.panels(Integrated_Spreadsheet_contiguous[c(7,32:42,53,6)], method = "spearman", hist.col = "gray80", ellipses = "FALSE", breaks = 25)
+cor2 <- rcorr(as.matrix(Integrated_Spreadsheet_contiguous[c(7,32:42,53,6)]), type = "spearman")
 cor2
 cor2$r
 cor2$P
@@ -41,60 +41,45 @@ corrplot(cor2$r, type="upper", order="original",
 
 #Bivariate Analaysis with Household
 
-pairs.panels(Integrated_Spreadsheet[c(3, 32:40)], method = "spearman", hist.col = "gray80", ellipses = "FALSE", breaks = 25)
-cor3 <- rcorr(as.matrix(Integrated_Spreadsheet[c(3,32:40)]), type = "spearman")
+pairs.panels(Integrated_Spreadsheet_contiguous[c(7,43:52)], method = "spearman", hist.col = "gray80", ellipses = "FALSE", breaks = 25)
+cor3 <- rcorr(as.matrix(Integrated_Spreadsheet_contiguous[c(7,43:52)]), type = "spearman")
 cor3
 cor3$r
 cor3$P
 corrplot(cor3$r, type="upper", order="original", 
          p.mat = cor3$P, sig.level = 0.01, insig = "blank", tl.srt = 45, tl.col = "black")
 
-#Scatterplot between HEVs per '000 cars and proximity to the London Congestion Charge
-
-ggplot(Integrated_Spreadsheet[which(Integrated_Spreadsheet$DistLCCln>0),], aes(x=DistLCCln, y=HEVln)) +
-  geom_point(shape=1) + 
-  xlab("Euclidean Distance to Closest Border Crossing (ln)") +
-  ylab("Hybrid Electric Vehicles per '000 cars (ln)") +
-  theme(axis.title.y=element_text(color = "black", face="bold")) +
-  theme(axis.title.x=element_text(color = "black", face="bold")) +
-  theme(axis.text.x=element_text(color = "black", size=12)) +
-  theme(axis.text.y=element_text(color = "black", size=12)) +
-  geom_smooth(method=lm,
-              se=FALSE)
-
-#Scatterplot between HEVs per '000 cars and interaction with the London Congestion Charge
-
-ggplot(Integrated_Spreadsheet, aes(x=PropDriveLCC1kln, y=HEVln)) +
-    geom_point(shape=1) + 
-    xlab("Network Distance to Closest Fuel Station in the Republic (km)") +
-    ylab("Hybrid Electric Vehicles per '000 cars (ln)") +
-    theme(axis.title.y=element_text(color = "black", face="bold")) +
-    theme(axis.title.x=element_text(color = "black", face="bold")) +
-    theme(axis.text.x=element_text(color = "black", size=12)) +
-    theme(axis.text.y=element_text(color = "black", size=12)) +
-  geom_smooth(method=lm,
-              se=FALSE)
-
-#Boxplots of Area Categories against Hybrid Electric Vehicles per '000 cars and Kruskal Wallis Test
-
-  Integrated_Spreadsheet$AreaCat <- factor(Integrated_Spreadsheet$AreaCat)
-
-  ggplot(Integrated_Spreadsheet, aes(x=AreaCat, y=HEVp1000)) + geom_boxplot() theme(axis.text.x=element_text(angle=30, vjust=0.8, hjust=1, face="bold"))
-  ggbox <- ggplot(Integrated_Spreadsheet, aes(x=AreaCat, y=HEVp1000)) + geom_boxplot(outlier.shape = NA)
-  ggbox <- ggbox + theme(axis.text.x=element_text(color = "black", size=12)) 
-  ggbox <- ggbox + theme(axis.text.y=element_text(color = "black", size=12))
-  ggbox <- ggbox + theme(axis.title.x=element_text(color = "black", face="bold"))
-  ggbox <- ggbox + theme(axis.title.y=element_text(color = "black", face="bold"))
-  ggbox <- ggbox + ylab("Hybrid Electric Vehicles per '000 cars") + xlab("Local Authority Categories")
-  ggbox
-  
-  kruskal.test(HEVp1000 ~ AreaCat, data = Integrated_Spreadsheet)
-  
 # Benchmark OLS log-log Regression Models
 
-mod1 <- lm(log(PPEV1k) ~ MedianAge + Level4 + SelfEmp + MedianY + OneCar + CarDrive + PopDens + SemiD + MeanRes + PHEV1k + TotCPoint)
+mod1 <- lm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY))
 summary(mod1)
 par(mfrow=c(2,2))
-plot(mod1, main = "Benchmark OLS Model")
+plot(mod1, main = "Socioeconomic Model")
 vif(mod1)
 anova(mod1)
+AIC(mod1)
+
+mod2 <- lm(log(PPEV1k) ~ log(PopDens) + log(SemiD) + log(MeanRes))
+summary(mod2)
+par(mfrow=c(2,2))
+plot(mod2, main = "Household Model")
+vif(mod2)
+anova(mod2)
+AIC(mod2)
+
+mod3 <- lm(log(PPEV1k) ~ log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint)
+summary(mod3)
+par(mfrow=c(2,2))
+plot(mod3, main = "Transport Model")
+vif(mod3)
+anova(mod3)
+AIC(mod3)
+
+mod4 <- lm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
+        log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint)
+summary(mod4)
+par(mfrow=c(2,2))
+plot(mod4, main = "Integrated Model")
+vif(mod4)
+anova(mod4)
+AIC(mod4)

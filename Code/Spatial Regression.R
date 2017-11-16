@@ -6,7 +6,7 @@ library(RColorBrewer)
 library(tmap)
 
 #Load Data
-setwd("~/GitHub/EV")
+setwd("~/GitHub/PEV")
 SpatDat <- readOGR("Shapefiles","LAD_DEC_2012_GB_BGC_Linked")
 summary(SpatDat)
 
@@ -27,29 +27,29 @@ continuity.listw <- nb2listw(continuity.nb)
 summary(continuity.listw)
 
 #Autocorrelation Analysis
-moran.test(SpatDat$IS_PPEV1k,continuity.listw, randomisation=FALSE, alternative="two.sided")
-moran.plot(SpatDat$IS_PPEV1k, continuity.listw)
-LMIresult <- localmoran(SpatDat$IS_PPEV1k, continuity.listw)
+moran.test(SpatDat$PPEV1k,continuity.listw, randomisation=FALSE, alternative="two.sided")
+moran.plot(SpatDat$PPEV1k, continuity.listw)
+LMIresult <- localmoran(SpatDat$PPEV1k, continuity.listw)
 LMImap <- spCbind(SpatDat, as.data.frame(LMIresult))
 spplot(LMImap, "Z.Ii")
 
 #Spatial log-normal Regression Models
 
 #Spatial Lag Model
-mod7SLM <- lagsarlm(log(PPEV1k) ~ MedianAge + Level4 + SelfEmp + MedianY + 
-                      OneCar + CarDrive + PopDens + SemiD + MeanRes + PHEV1k + TotCPoint, 
+mod7SLM <- lagsarlm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
+                        log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
                     data = SpatDat, continuity.listw)
 summary(mod7SLM)
 
 #Spatial Error Model
-mod7SEM <- errorsarlm(PPEV1k ~ MedianAge + Level4 + SelfEmp + MedianY + 
-                        OneCar + CarDrive + PopDens + SemiD + MeanRes + PHEV1k + TotCPoint, 
+mod7SEM <- errorsarlm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
+                        log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
                       data = SpatDat, continuity.listw)
 summary(mod7SEM)
 
 #Spatial Durbin Model
-mod7SDM <- lagsarlm(PPEV1k ~ MedianAge + Level4 + SelfEmp + MedianY + 
-                      OneCar + CarDrive + PopDens + SemiD + MeanRes + PHEV1k + TotCPoint, 
+mod7SDM <- lagsarlm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
+                      log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
                     data = SpatDat, continuity.listw, type = "mixed")
 summary(mod7SDM)
 W <- as(continuity.listw, "CsparseMatrix")
@@ -57,23 +57,23 @@ trMatc <- trW(W, type = "mult")
 summary(impacts(mod7SDM, tr=trMatc, R=200), zstats=TRUE, short = TRUE)
 
 #Spatial Durbin Error Model
-mod7SDEM <- errorsarlm(PPEV1k ~ MedianAge + Level4 + SelfEmp + MedianY + 
-                         OneCar + CarDrive + PopDens + SemiD + MeanRes + PHEV1k + TotCPoint, 
+mod7SDEM <- errorsarlm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
+                         log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
                       data = SpatDat, continuity.listw, etype = "emixed")
 summary(mod7SDEM)
 summary(impacts(mod7SDEM))
 
 #Simultaneous Autoregressive Model
-mod7SAR <- spautolm(PPEV1k ~ MedianAge + Level4 + SelfEmp + MedianY + 
-                      OneCar + CarDrive + PopDens + SemiD + MeanRes + PHEV1k + TotCPoint, 
+mod7SAR <- spautolm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
+                      log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
                     data = SpatDat, listw = continuity.listw, family = "SAR", method = "eigen")
 summary(mod7SAR)
 mod7resSAR <- MCMCsamp(mod7SAR, mcmc = 5000, burnin = 500, listw = continuity.listw)
 summary(mod7resSAR)
 
 #Conditional Autoregressive Model
-mod7CAR <- spautolm(PPEV1k ~ MedianAge + Level4 + SelfEmp + MedianY + 
-                      OneCar + CarDrive + PopDens + SemiD + MeanRes + PHEV1k + TotCPoint, 
+mod7CAR <- spautolm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +
+                      log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint, 
                     data = SpatDat, listw = continuity.listw, family = "CAR", method = "eigen")
 summary(mod7CAR)
 mod7resCAR <- MCMCsamp(mod7CAR, mcmc = 5000, burnin = 500, listw = continuity.listw)

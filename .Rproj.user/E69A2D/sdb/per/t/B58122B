@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#Load Data\nsetwd(\"~/GitHub/PEV\")\nattach(Integrated_Spreadsheet_contiguous)\n\n#Load Packages; use the function instal.package() if a first instal is needed\nlibrary(psych)\nlibrary(car)\nlibrary(ggplot2)\nlibrary(Hmisc)\nlibrary(corrplot)\n\n#Histograms of Private EVs per '000 cars across the UK \n\nhist(PPEV1k, breaks = 50, xlab = \"Private Plug-in Electric Vehicles per thousand cars\", main = NULL, font.lab = 2, col = \"gray80\")\nhist(PBEV1k, breaks = 50, xlab = \"Private Pure Battery Electric Vehicles per thousand cars\", main = NULL, font.lab = 2, col = \"gray80\")\nhist(PPHEV1k, breaks = 50, xlab = \"Private Plug-in Hybrid Electric Vehicles per thousand cars\", main = NULL, font.lab = 2, col = \"gray80\")\n\n#Descriptive Statistics\n\ndescribe(Integrated_Spreadsheet)\n\n#Bivariate Analaysis with Socioeconomics \n\npairs.panels(Integrated_Spreadsheet_contiguous[c(7,19:30)], method = \"spearman\", hist.col = \"gray80\", ellipses = \"FALSE\", breaks = 25)\ncor1 <- rcorr(as.matrix(Integrated_Spreadsheet_contiguous[c(7,19:30)]), type = \"spearman\")\ncor1\ncor1$r\ncor1$P\ncorrplot(cor1$r, type=\"upper\", order=\"original\", \n         p.mat = cor1$P, sig.level = 0.01, insig = \"blank\", tl.srt = 45, tl.col = \"black\")\n\n#Bivariate Analaysis with Travel \n\npairs.panels(Integrated_Spreadsheet_contiguous[c(7,32:42,53,6)], method = \"spearman\", hist.col = \"gray80\", ellipses = \"FALSE\", breaks = 25)\ncor2 <- rcorr(as.matrix(Integrated_Spreadsheet_contiguous[c(7,32:42,53,6)]), type = \"spearman\")\ncor2\ncor2$r\ncor2$P\ncorrplot(cor2$r, type=\"upper\", order=\"original\", \n         p.mat = cor2$P, sig.level = 0.01, insig = \"blank\", tl.srt = 45, tl.col = \"black\")\n\n#Bivariate Analaysis with Household\n\npairs.panels(Integrated_Spreadsheet_contiguous[c(7,43:52)], method = \"spearman\", hist.col = \"gray80\", ellipses = \"FALSE\", breaks = 25)\ncor3 <- rcorr(as.matrix(Integrated_Spreadsheet_contiguous[c(7,43:52)]), type = \"spearman\")\ncor3\ncor3$r\ncor3$P\ncorrplot(cor3$r, type=\"upper\", order=\"original\", \n         p.mat = cor3$P, sig.level = 0.01, insig = \"blank\", tl.srt = 45, tl.col = \"black\")\n\n# Benchmark OLS log-log Regression Models\n\nmod1 <- lm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY))\nsummary(mod1)\npar(mfrow=c(2,2))\nplot(mod1, main = \"Socioeconomic Model\")\nvif(mod1)\nanova(mod1)\nAIC(mod1)\n\nmod2 <- lm(log(PPEV1k) ~ log(PopDens) + log(SemiD) + log(MeanRes))\nsummary(mod2)\npar(mfrow=c(2,2))\nplot(mod2, main = \"Household Model\")\nvif(mod2)\nanova(mod2)\nAIC(mod2)\n\nmod3 <- lm(log(PPEV1k) ~ log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint)\nsummary(mod3)\npar(mfrow=c(2,2))\nplot(mod3, main = \"Transport Model\")\nvif(mod3)\nanova(mod3)\nAIC(mod3)\n\nmod4 <- lm(log(PPEV1k) ~ log(MedianAge) + log(Level4) + log(SelfEmp) + log(MedianY) +\n        log(PopDens) + log(SemiD) + log(MeanRes) + log(OneCar) + log(CarDrive) + log(PHEV1k) + TotCPoint)\nsummary(mod4)\npar(mfrow=c(2,2))\nplot(mod4, main = \"Integrated Model\")\nvif(mod4)\nanova(mod4)\nAIC(mod4)",
+    "created" : 1507369341355.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4106273953",
+    "id" : "B58122B",
+    "lastKnownWriteTime" : 1510310407,
+    "last_content_update" : 1510310407855,
+    "path" : "~/GitHub/PEV/Code/Descriptive Stats and Regression Models.R",
+    "project_path" : "Code/Descriptive Stats and Regression Models.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

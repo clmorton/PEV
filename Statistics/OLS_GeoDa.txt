@@ -1,0 +1,218 @@
+>>11/02/17 17:33:51
+REGRESSION
+----------
+SUMMARY OF OUTPUT: ORDINARY LEAST SQUARES ESTIMATION
+Data set            :  LAD_DEC_2012_GB_BGC_Linked
+Dependent Variable  :      PPEV1k  Number of Observations:  374
+Mean dependent var  :     1.38623  Number of Variables   :   12
+S.D. dependent var  :     1.15675  Degrees of Freedom    :  362 
+
+R-squared           :    0.749579  F-statistic           :     98.5058
+Adjusted R-squared  :    0.741969  Prob(F-statistic)     :           0
+Sum squared residual:     125.321  Log likelihood        :    -326.222
+Sigma-square        :    0.346191  Akaike info criterion :     676.443
+S.E. of regression  :     0.58838  Schwarz criterion     :     723.534
+Sigma-square ML     :    0.335083
+S.E of regression ML:    0.578864
+
+-----------------------------------------------------------------------------
+       Variable      Coefficient      Std.Error    t-Statistic   Probability
+-----------------------------------------------------------------------------
+          CONSTANT       10.0762        1.56759        6.42784     0.00000
+         MedianAge    -0.0301652      0.0171745        -1.7564     0.07987
+            Level4   -0.00679536     0.00806813      -0.842247     0.40020
+           SelfEmp     0.0893466      0.0208419        4.28687     0.00002
+           MedianY   0.000126006   1.47444e-005        8.54602     0.00000
+           PopDens   -0.00170862     0.00335685      -0.508996     0.61106
+             SemiD     0.0136769     0.00525952         2.6004     0.00969
+           MeanRes      -4.14649       0.405226       -10.2325     0.00000
+            OneCar    -0.0726082        0.01354       -5.36249     0.00000
+          CarDrive    0.00904284     0.00656511        1.37741     0.16924
+            PHEV1k     0.0887141       0.012426        7.13937     0.00000
+         TotCPoint     0.0083103     0.00153798        5.40337     0.00000
+-----------------------------------------------------------------------------
+
+REGRESSION DIAGNOSTICS  
+MULTICOLLINEARITY CONDITION NUMBER   190.339835
+TEST ON NORMALITY OF ERRORS
+TEST                  DF           VALUE             PROB
+Jarque-Bera            2          6175.9084          0.00000
+
+DIAGNOSTICS FOR HETEROSKEDASTICITY  
+RANDOM COEFFICIENTS
+TEST                  DF           VALUE             PROB
+Breusch-Pagan test    11          1295.0395          0.00000
+Koenker-Bassett test  11           121.7908          0.00000
+
+DIAGNOSTICS FOR SPATIAL DEPENDENCE   
+FOR WEIGHT MATRIX : LAD_DEC_2012_GB_BGC_Linked
+   (row-standardized weights)
+TEST                          MI/DF        VALUE          PROB
+Moran's I (error)             0.1858        5.8517        0.00000
+Lagrange Multiplier (lag)       1          43.2520        0.00000
+Robust LM (lag)                 1          15.1238        0.00010
+Lagrange Multiplier (error)     1          28.4627        0.00000
+Robust LM (error)               1           0.3345        0.56304
+Lagrange Multiplier (SARMA)     2          43.5865        0.00000
+============================== END OF REPORT ================================
+
+
+
+>>11/02/17 17:32:17
+REGRESSION
+----------
+SUMMARY OF OUTPUT: ORDINARY LEAST SQUARES ESTIMATION
+Data set            :  LAD_DEC_2012_GB_BGC_Linked
+Dependent Variable  :      PPEV1k  Number of Observations:  374
+Mean dependent var  :     1.38623  Number of Variables   :    5
+S.D. dependent var  :     1.15675  Degrees of Freedom    :  369 
+
+R-squared           :    0.485346  F-statistic           :     86.9966
+Adjusted R-squared  :    0.479767  Prob(F-statistic)     :           0
+Sum squared residual:     257.554  Log likelihood        :    -460.927
+Sigma-square        :    0.697979  Akaike info criterion :     931.854
+S.E. of regression  :    0.835451  Schwarz criterion     :     951.476
+Sigma-square ML     :    0.688647
+S.E of regression ML:    0.829848
+
+-----------------------------------------------------------------------------
+       Variable      Coefficient      Std.Error    t-Statistic   Probability
+-----------------------------------------------------------------------------
+          CONSTANT       9.23077       0.814213        11.3371     0.00000
+            OneCar     -0.162138       0.015776       -10.2775     0.00000
+          CarDrive    -0.0218088     0.00541654       -4.02633     0.00007
+            PHEV1k     0.0328517      0.0120433        2.72779     0.00668
+         TotCPoint    0.00709955      0.0021164        3.35454     0.00088
+-----------------------------------------------------------------------------
+
+REGRESSION DIAGNOSTICS  
+MULTICOLLINEARITY CONDITION NUMBER   46.754680
+TEST ON NORMALITY OF ERRORS
+TEST                  DF           VALUE             PROB
+Jarque-Bera            2          6869.4467          0.00000
+
+DIAGNOSTICS FOR HETEROSKEDASTICITY  
+RANDOM COEFFICIENTS
+TEST                  DF           VALUE             PROB
+Breusch-Pagan test     4          1596.1003          0.00000
+Koenker-Bassett test   4           142.8493          0.00000
+
+DIAGNOSTICS FOR SPATIAL DEPENDENCE   
+FOR WEIGHT MATRIX : LAD_DEC_2012_GB_BGC_Linked
+   (row-standardized weights)
+TEST                          MI/DF        VALUE          PROB
+Moran's I (error)             0.2586        7.7354        0.00000
+Lagrange Multiplier (lag)       1          72.0291        0.00000
+Robust LM (lag)                 1          17.0190        0.00004
+Lagrange Multiplier (error)     1          55.1565        0.00000
+Robust LM (error)               1           0.1463        0.70210
+Lagrange Multiplier (SARMA)     2          72.1754        0.00000
+============================== END OF REPORT ================================
+
+
+
+>>11/02/17 17:31:44
+REGRESSION
+----------
+SUMMARY OF OUTPUT: ORDINARY LEAST SQUARES ESTIMATION
+Data set            :  LAD_DEC_2012_GB_BGC_Linked
+Dependent Variable  :      PPEV1k  Number of Observations:  374
+Mean dependent var  :     1.38623  Number of Variables   :    4
+S.D. dependent var  :     1.15675  Degrees of Freedom    :  370 
+
+R-squared           :    0.264536  F-statistic           :     44.3613
+Adjusted R-squared  :    0.258573  Prob(F-statistic)     :1.64144e-024
+Sum squared residual:     368.056  Log likelihood        :    -527.687
+Sigma-square        :    0.994747  Akaike info criterion :     1063.37
+S.E. of regression  :     0.99737  Schwarz criterion     :     1079.07
+Sigma-square ML     :    0.984108
+S.E of regression ML:    0.992022
+
+-----------------------------------------------------------------------------
+       Variable      Coefficient      Std.Error    t-Statistic   Probability
+-----------------------------------------------------------------------------
+          CONSTANT       6.50989       0.943183        6.90204     0.00000
+           PopDens     0.0178211     0.00242871        7.33769     0.00000
+         TotCPoint     0.0128938     0.00247474        5.21016     0.00000
+           MeanRes      -2.36384       0.405366       -5.83137     0.00000
+-----------------------------------------------------------------------------
+
+REGRESSION DIAGNOSTICS  
+MULTICOLLINEARITY CONDITION NUMBER   42.928795
+TEST ON NORMALITY OF ERRORS
+TEST                  DF           VALUE             PROB
+Jarque-Bera            2          7775.1809          0.00000
+
+DIAGNOSTICS FOR HETEROSKEDASTICITY  
+RANDOM COEFFICIENTS
+TEST                  DF           VALUE             PROB
+Breusch-Pagan test     3           827.9386          0.00000
+Koenker-Bassett test   3            71.2745          0.00000
+
+DIAGNOSTICS FOR SPATIAL DEPENDENCE   
+FOR WEIGHT MATRIX : LAD_DEC_2012_GB_BGC_Linked
+   (row-standardized weights)
+TEST                          MI/DF        VALUE          PROB
+Moran's I (error)             0.3448       10.1879        0.00000
+Lagrange Multiplier (lag)       1         145.2734        0.00000
+Robust LM (lag)                 1          56.4345        0.00000
+Lagrange Multiplier (error)     1          98.0414        0.00000
+Robust LM (error)               1           9.2025        0.00242
+Lagrange Multiplier (SARMA)     2         154.4758        0.00000
+============================== END OF REPORT ================================
+
+
+
+>>11/02/17 17:30:53
+REGRESSION
+----------
+SUMMARY OF OUTPUT: ORDINARY LEAST SQUARES ESTIMATION
+Data set            :  LAD_DEC_2012_GB_BGC_Linked
+Dependent Variable  :      PPEV1k  Number of Observations:  374
+Mean dependent var  :     1.38623  Number of Variables   :    5
+S.D. dependent var  :     1.15675  Degrees of Freedom    :  369 
+
+R-squared           :    0.558212  F-statistic           :     116.561
+Adjusted R-squared  :    0.553423  Prob(F-statistic)     :           0
+Sum squared residual:     221.089  Log likelihood        :    -432.379
+Sigma-square        :    0.599157  Akaike info criterion :     874.757
+S.E. of regression  :    0.774052  Schwarz criterion     :     894.379
+Sigma-square ML     :    0.591146
+S.E of regression ML:     0.76886
+
+-----------------------------------------------------------------------------
+       Variable      Coefficient      Std.Error    t-Statistic   Probability
+-----------------------------------------------------------------------------
+          CONSTANT      -3.60928         0.5604       -6.44055     0.00000
+         MedianAge     0.0010028       0.012471       0.080411     0.93595
+            Level4     0.0333038     0.00981928        3.39168     0.00077
+           SelfEmp     0.0228901      0.0224648        1.01893     0.30890
+           MedianY   0.000167306   1.74403e-005         9.5931     0.00000
+-----------------------------------------------------------------------------
+
+REGRESSION DIAGNOSTICS  
+MULTICOLLINEARITY CONDITION NUMBER   41.806637
+TEST ON NORMALITY OF ERRORS
+TEST                  DF           VALUE             PROB
+Jarque-Bera            2         23177.7110          0.00000
+
+DIAGNOSTICS FOR HETEROSKEDASTICITY  
+RANDOM COEFFICIENTS
+TEST                  DF           VALUE             PROB
+Breusch-Pagan test     4          1016.5055          0.00000
+Koenker-Bassett test   4            51.6401          0.00000
+
+DIAGNOSTICS FOR SPATIAL DEPENDENCE   
+FOR WEIGHT MATRIX : LAD_DEC_2012_GB_BGC_Linked
+   (row-standardized weights)
+TEST                          MI/DF        VALUE          PROB
+Moran's I (error)             0.4163       12.3166        0.00000
+Lagrange Multiplier (lag)       1         119.8841        0.00000
+Robust LM (lag)                 1           5.8011        0.01602
+Lagrange Multiplier (error)     1         142.9686        0.00000
+Robust LM (error)               1          28.8856        0.00000
+Lagrange Multiplier (SARMA)     2         148.7697        0.00000
+============================== END OF REPORT ================================
+
+
+
