@@ -1,8 +1,9 @@
 #Load Data
 setwd("~/GitHub/PEV")
 attach(Integrated_Spreadsheet_contiguous)
+View(Integrated_Spreadsheet_contiguous)
 
-#Load Packages; use the function instal.package() if a first instal is needed
+#Load Packages; use the function instal.packages() if a first instal is needed
 library(psych)
 library(car)
 library(ggplot2)
@@ -17,7 +18,7 @@ hist(PPHEV1k, breaks = 50, xlab = "Private Plug-in Hybrid Electric Vehicles per 
 
 #Descriptive Statistics
 
-describe(Integrated_Spreadsheet)
+describe(Integrated_Spreadsheet_contiguous)
 
 #Bivariate Analaysis with Socioeconomics 
 

@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1535615221993.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "6751D207",
+    "lastKnownWriteTime" : 12666511397552246,
+    "last_content_update" : 1535615221993,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "D1BF4B68",
+        "caption" : "Integrated_Spreadsheet_contiguous",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=Integrated_Spreadsheet_contiguous&cache_key=D1BF4B68",
+        "displayedObservations" : 374,
+        "environment" : "",
+        "object" : "Integrated_Spreadsheet_contiguous",
+        "preview" : 0,
+        "totalObservations" : 374,
+        "variables" : 54
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
